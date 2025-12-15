@@ -1,0 +1,826 @@
+:root {
+    --bg-color: #050505;
+    --text-color: #e0e0e0;
+    --accent-color: #d4af37;
+    /* Gold-ish accent */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+/* Navigation */
+.nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+    /* Ensures visibility on all backgrounds */
+    color: white;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* Hamburger Menu (Hidden on desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 200;
+}
+
+.hamburger span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    transition: 0.3s;
+}
+
+/* Open state for hamburger animation */
+.nav.active .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.nav.active .hamburger span:nth-child(2) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+.menu {
+    position: absolute;
+    top: 50vh;
+    right: 4rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0;
+}
+
+.menu a {
+    margin-right: 1rem;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+/* Stacking Sections (Sticky Logic) */
+main {
+    position: relative;
+    width: 100%;
+}
+
+.panel {
+    /* KEY FOR STACKING EFFECT */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    /* Important for occlusion */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    /* Shadow for depth */
+}
+
+/* Section 1: Hero */
+.hero {
+    background-color: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    position: relative;
+}
+
+.hero-content {
+    position: absolute;
+    left: 5%;
+    z-index: 10;
+    mix-blend-mode: difference;
+}
+
+.hero-title {
+    font-size: 8rem;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    opacity: 0;
+    /* Animated with GSAP */
+    transform: translateY(50px);
+}
+
+.hero-subtitle {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    opacity: 0;
+    /* Animated with GSAP */
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    opacity: 0.6;
+    /* Moodiness */
+    filter: grayscale(20%);
+}
+
+/* Section 2: About */
+.about {
+    background-color: #111;
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+.about-image {
+    height: 100%;
+    overflow: hidden;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-text {
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-text h2 {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    font-family: var(--font-body);
+    display: flex;
+    align-items: center;
+}
+
+.about-text h2::before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 3px;
+    background-color: currentColor;
+    margin-right: 1.5rem;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+    max-width: 500px;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-top: 1px solid #333;
+    padding-top: 2rem;
+}
+
+
+/* Section 3: Services Redesign */
+.services {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    padding-right: 0;
+    box-sizing: border-box;
+    background-color: #0d0d0d;
+}
+
+
+
+.srv-main-grid {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+}
+
+/* Left Column (Content) */
+.srv-left-col {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.srv-items-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.srv-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.srv-img-box {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background-color: #222;
+}
+
+.srv-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.srv-item:hover .srv-img-box img {
+    transform: scale(1.1);
+}
+
+.srv-desc {
+    font-size: 0.9rem;
+}
+
+.srv-num {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+.srv-desc h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+}
+
+.srv-desc p {
+    font-size: 1rem;
+    opacity: 0.7;
+    line-height: 1.4;
+}
+
+.srv-big-title {
+    width: 100%;
+    height: 100%;
+    font-size: 4.5rem;
+    line-height: 0.8;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: -5px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.srv-big-title::before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 3px;
+    background-color: currentColor;
+    margin-right: 1.5rem;
+}
+
+/* Right Column (Feature) */
+.srv-right-col {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.srv-feature-img {
+    flex-grow: 1;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.srv-feature-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.right-desc {
+    margin-top: 1rem;
+    max-width: 80%;
+}
+
+/* Section 4: Gallery Redesign (Masonry) */
+.gallery {
+    background-color: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    position: relative;
+    /* Changed from sticky to allow scrolling */
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+    z-index: 50;
+    /* Ensure it covers the sticky sections below if any */
+}
+
+/* Big title style similar to Services */
+.gallery-header {
+    width: 100%;
+    padding: 80px 0 150px 0;
+
+
+}
+
+.gallery-big-text {
+    font-size: 6rem;
+    color: var(--text-color);
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 0.8;
+    letter-spacing: -5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-title {
+    /* Keeping the old title as subtitle or removing? User said "add the word". I'll replace the old title with this new big one style. */
+    display: none;
+}
+
+.gallery-big-text::before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 3px;
+    background-color: currentColor;
+    margin-right: 1.5rem;
+}
+
+.masonry-grid {
+    column-count: 3;
+    column-gap: 1rem;
+    width: 100%;
+}
+
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.masonry-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Specific styling for text blocks in masonry */
+.text-block {
+    text-align: center;
+    padding: 2rem;
+    background-color: transparent;
+    cursor: default;
+
+}
+
+.text-block h3 {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.text-block p {
+    font-size: 1.5rem;
+    line-height: 1.2;
+}
+
+.text-block-small {
+    text-align: right;
+    padding: 2rem;
+    cursor: default;
+}
+
+.text-block-small p {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.text-block-small span {
+    display: block;
+    font-size: 2rem;
+}
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: #f1f1f1;
+    font-size: 4rem;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.close-lightbox:hover,
+.close-lightbox:focus {
+    color: var(--accent-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive Masonry */
+@media (max-width: 900px) {
+    .masonry-grid {
+        column-count: 2;
+    }
+
+    .gallery-title {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .masonry-grid {
+        column-count: 1;
+    }
+}
+
+/* Section 4: Contact */
+.contact {
+    background-color: #050505;
+    text-align: center;
+}
+
+.contact-content h2 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-content h2::before {
+    content: '';
+    display: inline-block;
+    width: 90px;
+    height: 3px;
+    background-color: currentColor;
+    margin-right: 1.5rem;
+}
+
+.contact-content p {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 4rem;
+    color: #888;
+}
+
+.email-link {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 4rem;
+    transition: opacity 0.3s;
+}
+
+.email-link:hover {
+    opacity: 0.7;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 5rem;
+}
+
+.socials a {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+footer {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .masonry-grid {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Navigation */
+    .nav {
+        padding: 1.5rem;
+    }
+
+    .nav.active {
+        mix-blend-mode: normal;
+    }
+
+    .logo {
+        margin-top: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* Mobile Menu State */
+    .menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #000;
+        transform: translateY(-100%);
+        justify-content: center;
+        align-items: center;
+        right: auto;
+        margin: 0;
+        z-index: 150;
+        transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s;
+        opacity: 0;
+    }
+
+    .nav.active .menu {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .menu a {
+        font-size: 3rem;
+        margin: 1.5rem 0;
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    .nav.active .menu a {
+        opacity: 1;
+    }
+
+    /* Hero */
+    .hero-content {
+        left: 2rem;
+        width: 90%;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    /* About */
+    .about-container {
+        grid-template-columns: 1fr;
+    }
+
+    .about-image {
+        display: none;
+    }
+
+    .about-text {
+        padding: 4rem 2rem;
+    }
+
+    .about-text h2 {
+        font-size: 3rem;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        font-size: 1rem;
+    }
+
+    /* Services */
+    .services {
+        padding: 4rem 2rem;
+        min-height: auto;
+    }
+
+    .srv-main-grid {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .srv-left-col,
+    .srv-right-col {
+        flex: auto;
+        width: 100%;
+    }
+
+    .srv-items-row {
+        grid-template-columns: 1fr;
+    }
+
+    .srv-big-title {
+        font-size: 3.5rem;
+        letter-spacing: -2px;
+        margin: 2rem 0;
+    }
+
+    .srv-img-box {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Gallery */
+    .gallery {
+        padding: 4rem 1.5rem;
+    }
+
+    .gallery-header {
+        padding: 2rem 0 4rem 0;
+    }
+
+    .gallery-big-text {
+        font-size: 3rem;
+        letter-spacing: -2px;
+    }
+
+    .masonry-grid {
+        column-count: 1;
+    }
+
+    .text-block h3 {
+        font-size: 1.5rem;
+    }
+
+    .text-block p {
+        font-size: 1.2rem;
+    }
+
+    /* Contact */
+    .contact-content h2 {
+        font-size: 2rem;
+    }
+
+    .contact-content p {
+        width: 90%;
+        margin: 0 auto 3rem auto;
+    }
+
+    .email-link {
+        font-size: 1.5rem;
+        word-break: break-all;
+    }
+
+    .socials {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    footer {
+        position: relative;
+        bottom: auto;
+        padding-bottom: 2rem;
+        margin-top: 2rem;
+    }
+}
