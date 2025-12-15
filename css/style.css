@@ -55,6 +55,7 @@ a {
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 2px;
+    opacity: 0;
 }
 
 /* Hamburger Menu (Hidden on desktop) */
