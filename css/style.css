@@ -649,6 +649,37 @@ footer {
     }
 }
 
+/* ===== MODO MÓVIL: Sin sticky/parallax - scroll normal ===== */
+@media (max-width: 768px) {
+    /* Desactivar el efecto stacking - las sections fluyen una tras otra */
+    main {
+        display: block;
+    }
+
+    .panel {
+        position: relative;
+        height: auto;
+        min-height: 100vh;
+        top: auto;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .panel:not(.gallery) {
+        padding: 4rem 0;
+    }
+
+    .gallery {
+        min-height: auto;
+    }
+
+    .srv-desc {
+        font-size: 0.9rem;
+        margin: 20px;
+    }
+    
+}
+
 @media (max-width: 768px) {
 
     /* Navigation */
@@ -761,10 +792,21 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .srv-big-title {
+    .srv-big-title{
+        display: none;
+    }
+    
+    
+    
+    .srv-big-title-mobile {
+        width: 90%;
         font-size: 3.5rem;
         letter-spacing: -2px;
         margin: 2rem 0;
+        line-height: 01;
+        margin:0 auto;
+        padding-top: 3rem;
+        
     }
 
     .srv-img-box {
