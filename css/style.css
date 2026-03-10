@@ -268,7 +268,9 @@ main {
     background-color: #0d0d0d;
 }
 
-
+.srv-big-title-mobile{
+    display: none;
+}
 
 .srv-main-grid {
     display: flex;
@@ -720,17 +722,22 @@ footer {
     .nav.active .menu {
         transform: translateY(0);
         opacity: 1;
+        pointer-events: auto;
+    }
+
+    .menu {
+        pointer-events: none;
     }
 
     .menu a {
         font-size: 3rem;
         margin: 1.5rem 0;
         opacity: 0;
-        transition: 0.3s;
+        transition: opacity 0.3s;
     }
 
     .nav.active .menu a {
-        opacity: 1;
+        opacity: 1 !important;
     }
 
     /* Hero */

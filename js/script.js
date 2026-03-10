@@ -20,14 +20,18 @@ tlHero.to(".hero-title", {
         opacity: 0,
         duration: 1.5,
         ease: "power4.out"
-    }, "-=1.5")
-    .from(".menu a", {
+    }, "-=1.5");
+
+// Solo animar .menu a en escritorio (en móvil el menú se controla por hamburger)
+if (window.matchMedia("(min-width: 769px)").matches) {
+    tlHero.from(".menu a", {
         x: 50,
         opacity: 0,
         duration: 1,
         stagger: 0.1,
         ease: "power4.out"
     }, "-=1.5");
+}
 
 // ===== ESCRITORIO: Parallax, ScrollTrigger, stacking =====
 // En móvil no se ejecutan estas animaciones (scroll fluido sin efectos)
